@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The TodoList</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+
+    <div id="listFalse">
+        <table id="tableListFalse">
+            <thead>
+            <tr>
+                <th>numéro</th>
+                <th>intitulé</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="todoList : ${todoLists}">
+                <td th:if="${!todoList.done}" th:text="${todoList.id}" />
+                <td th:if="${!todoList.done}" th:text="${todoList.name}" />
+                <td th:if="${!todoList.done}"><button type="button"><a th:href="@{/todolist/goTrue/{id}(id = ${todoList.id})}"> Check</a></button></td>
+                <td th:if="${!todoList.done}"><button type="button"><a th:href="@{/todolist/update/{id}(id = ${todoList.id})}">update</a></button></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${todoListUpdate}">
+            <div>
+                <div>
+                    <form th:object="${todoListUpdate}" th:action="@{/todolist/update/{id}(id = ${id})}" method="post">
+                        <label>nom de la tâche</label><input type="text" th:field="*{name}" th:required="required"/>
+                        <button type="submit">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <h1> List done</h1>
+
+        <table id="tableListTrue">
+            <thead>
+            <tr>
+                <th>numéro</th>
+                <th>intitulé</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="todoList : ${todoLists}">
+                <td th:if="${todoList.done}" th:text="${todoList.id}" />
+                <td th:if="${todoList.done}" th:text="${todoList.name}" />
+                <td th:if="${todoList.done}">
+                    <button type="button"><a th:href="@{/todolist/delete/{id}(id= ${todoList.id})}">done</a></button>  </td>
+                <td th:if="${todoList.done}">
+                    <button type="button"><a th:href="@{/todolist/goFalse/{id}(id = ${todoList.id})}">Back</a></button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/todolist">Retour </a>
+
+</body>
+</html>
