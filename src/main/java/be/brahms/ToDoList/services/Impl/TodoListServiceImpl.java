@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class TodoListServiceImpl implements TodoListService {
 
     public final TodoListRepository todoListRepository;
@@ -61,6 +60,7 @@ public class TodoListServiceImpl implements TodoListService {
     }
 
     @Override
+    @Transactional
     public void deleteByDoneTrue(){
         todoListRepository.deleteByDoneTrue();
     }
