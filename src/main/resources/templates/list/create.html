@@ -3,16 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Create a Todo</title>
+    <style>
+        h1{
+        color: #008CBA;
+        text-align: center;
+        }
+        input[type=text], select {
+          width: 50%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+
+        input[type=submit] {
+          width: 100%;
+          background-color: #4CAF50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+          background-color: #45a049;
+        }
+
+        div {
+          border-radius: 5px;
+          background-color: #f2f2f2;
+          padding: 20px;
+        }
+
+        .buttonSave{
+          background-color: white;
+          color: black;
+          border: 5px solid #008CBA;
+          padding: 12px 28px;
+        }
+        .buttonSee{
+          background-color: white;
+          color: black;
+          border: 2px solid #008CBA;
+          padding: 14px 40px;
+        }
+        .buttonSee:hover{
+          background-color: #008CBA;
+          color: white;
+          padding: 14px 40px;
+        }
+        a{
+          text-decoration: none;
+        }
+    </style>
 </head>
 <body>
     <h1> Create a Todo </h1>
 
-    <form th:object="${todolist}" th:action="@{/todolist}" method="post">
-        <label> Nom de la tache: <input type="text" th:field="*{name}"/></label>
-        <button type="submit">Sauvegarder</button>
-    </form>
+    <div>
+        <form th:object="${todolist}" th:action="@{/todolist}" method="post">
+            <label> Nom de la tache:</label>
+            <input type="text" th:field="*{name}"/>
 
-    <a href="todolist/list">Voir la liste</a>
+            <button type="submit" class="buttonSave">Sauvegarder</button>
+        </form>
+
+        <button class="buttonSee"><a href="todolist/list">Voir la liste</a></button>
+    </div>
 
 </body>
 </html>
