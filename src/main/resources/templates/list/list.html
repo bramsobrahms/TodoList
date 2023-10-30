@@ -3,65 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <title>The TodoList</title>
+    <style>
+        h1{
+            color: #008CBA;
+            text-align: center;
+        }
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 48%;
+        }
+
+        .table td, .table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table tr:hover {
+            background-color: #ddd;
+        }
+
+        .table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #696969;
+            color: white;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .buttonCheck, .buttonDone{
+            background-color: #1f7a1f;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            padding: 10px 24px;
+        }
+        .buttonUpdat, .buttonBack{
+            background-color: #cc2900;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            padding: 10px 24px;
+        }
+        .buttonRetour, .buttonDeleteAll{
+            background-color: #0052cc;
+            color: black;
+            border: 2px solid #008CBA;
+            padding: 14px 50px;
+        }
+        .buttonRetour:hover, .buttonDeleteAll:hover{
+            background-color: #008CBA;
+            color: white;
+            padding: 14px 50px;
+        }
+        a{
+            color: white;
+            text-decoration: none;
+        }
+
+
+        input[type=text], select {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        div {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .buttonSave{
+            background-color: white;
+            color: black;
+            border: 5px solid #008CBA;
+            padding: 12px 28px;
+        }
+    </style>
 </head>
 <body>
     <h1>Todo List</h1>
 
-    <div id="listFalse">
-        <table id="tableListFalse">
-            <thead>
-            <tr>
-                <th>numéro</th>
-                <th>intitulé</th>
-            </tr>
-            </thead>
+    <div class="table-container">
+        <div class="table">
+            <h2 class="table-title">Table 1</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>numéro</th>
+                        <th>intitulé</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-            <tr th:each="todoList : ${todoLists}">
-                <td th:if="${!todoList.done}" th:text="${todoList.id}" />
-                <td th:if="${!todoList.done}" th:text="${todoList.name}" />
-                <td th:if="${!todoList.done}"><button type="button"><a th:href="@{/todolist/goTrue/{id}(id = ${todoList.id})}"> Check</a></button></td>
-                <td th:if="${!todoList.done}"><button type="button"><a th:href="@{/todolist/update/{id}(id = ${todoList.id})}">update</a></button></td>
-            </tr>
-            </tbody>
-        </table>
+                <tbody>
+                    <tr th:each="todoList : ${todoLists}">
+                    <td th:if="${!todoList.done}" th:text="${todoList.id}" />
+                    <td th:if="${!todoList.done}" th:text="${todoList.name}" />
+                    <td th:if="${!todoList.done}"><button type="button" class="buttonCheck"><a th:href="@{/todolist/goTrue/{id}(id = ${todoList.id})}"> Check</a></button></td>
+                    <td th:if="${!todoList.done}"><button type="button" class="buttonUpdat"><a th:href="@{/todolist/update/{id}(id = ${todoList.id})}">update</a></button></td>
+                </tr>
+                </tbody>
+            </table>
 
-        <div th:if="${todoListUpdate}">
-            <div>
+            <div th:if="${todoListUpdate}">
                 <div>
-                    <form th:object="${todoListUpdate}" th:action="@{/todolist/update/{id}(id = ${id})}" method="post">
-                        <label>nom de la tâche</label><input type="text" th:field="*{name}" th:required="required"/>
-                        <button type="submit">Save</button>
-                    </form>
+                    <div>
+                        <form th:object="${todoListUpdate}" th:action="@{/todolist/update/{id}(id = ${id})}" method="post">
+                            <label>nom de la tâche</label>
+                            <input type="text" th:field="*{name}" th:required="required"/>
+                            <button type="submit" class="buttonSave">Save</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <h1> List done</h1>
+        <div class="table">
+            <h2 class="table-title">Table 2</h2>
 
-        <table id="tableListTrue">
-            <thead>
-            <tr>
-                <th>numéro</th>
-                <th>intitulé</th>
-            </tr>
-            </thead>
+            <table id="tableListTrue">
+                <thead>
+                    <tr>
+                        <th>numéro</th>
+                        <th>intitulé</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-            <tr th:each="todoList : ${todoLists}">
-                <td th:if="${todoList.done}" th:text="${todoList.id}" />
-                <td th:if="${todoList.done}" th:text="${todoList.name}" />
-                <td th:if="${todoList.done}">
-                    <button type="button"><a th:href="@{/todolist/delete/{id}(id= ${todoList.id})}">done</a></button>  </td>
-                <td th:if="${todoList.done}">
-                    <button type="button"><a th:href="@{/todolist/goFalse/{id}(id = ${todoList.id})}">Back</a></button></td>
-            </tr>
-            </tbody>
-        </table>
-        <button type="button"><a th:href="@{/todolist/delete/allTrue}">Tout supprimer</a></button>
+                <tbody>
+                    <tr th:each="todoList : ${todoLists}">
+                        <td th:if="${todoList.done}" th:text="${todoList.id}" />
+                        <td th:if="${todoList.done}" th:text="${todoList.name}" />
+                        <td th:if="${todoList.done}"><button type="button" class="buttonDone"><a th:href="@{/todolist/delete/{id}(id= ${todoList.id})}">done</a></button>  </td>
+                        <td th:if="${todoList.done}"><button type="button" class="buttonBack"><a th:href="@{/todolist/goFalse/{id}(id = ${todoList.id})}">Back</a></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="buttonDeleteAll"><a th:href="@{/todolist/delete/allTrue}">Tout supprimer</a></button>
+        </div>
     </div>
 
-    <a href="/todolist">Retour </a>
+    <button type="button" class="buttonRetour"><a href="/todolist">Retour </a></button>
 
 </body>
 </html>
