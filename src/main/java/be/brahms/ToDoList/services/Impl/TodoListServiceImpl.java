@@ -4,10 +4,12 @@ import be.brahms.ToDoList.models.entities.TodoList;
 import be.brahms.ToDoList.repositories.TodoListRepository;
 import be.brahms.ToDoList.services.TodoListService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TodoListServiceImpl implements TodoListService {
 
     public final TodoListRepository todoListRepository;
@@ -57,4 +59,10 @@ public class TodoListServiceImpl implements TodoListService {
     public void delete(Long id){
         todoListRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteByDoneTrue(){
+        todoListRepository.deleteByDoneTrue();
+    }
+
 }

@@ -4,7 +4,6 @@ import be.brahms.ToDoList.models.entities.TodoList;
 import be.brahms.ToDoList.services.Impl.TodoListServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -71,4 +70,12 @@ public class TodoListController {
         todolistService.delete(id);
         return "redirect:/todolist/list";
     }
+
+    @GetMapping("/delete/allTrue")
+    public String deleteAll(){
+        todolistService.deleteByDoneTrue();
+        return "redirect:/todolist/list";
+    }
+
+
 }

@@ -14,4 +14,5 @@ public interface TodoListService {
     void goFalseTodo(Long id);
     void delete(Long id);
 
+    void deleteByDoneTrue();
 }
